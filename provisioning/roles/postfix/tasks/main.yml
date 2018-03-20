@@ -4,3 +4,15 @@
     state: present
   with_items:
     - postfix
+
+- name: Update main config
+  template:
+    src: main.cf.j2
+    dest: /etc/postfix/main.cf
+  register: postfix_main_config
+
+- name: Restart service
+  systemd:
+    name: postfix
+    state: restarted
+  when: postfix_main_config.changed
