@@ -1,0 +1,31 @@
+- hosts: all
+  tasks:
+    - name: Install packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - postfix
+        - dovecot-imapd
+        - dovecot-sieve
+
+    - name: Add rspamd gpg key
+      apt_key:
+        url: https://rspamd.com/apt-stable/gpg.key
+        state: present
+
+    - name: Add rspamd repository
+      apt_repository:
+        repo: "{{ item }}"
+        state: present
+        filename: rspamd
+      with_items:
+        - deb     http://rspamd.com/apt-stable/ stretch main
+        - deb-src http://rspamd.com/apt-stable/ stretch main
+
+    - name: Install rspamd
+      apt:
+        name: rspamd
+        state: present
+        install_recommends: false
+        update_cache: true
