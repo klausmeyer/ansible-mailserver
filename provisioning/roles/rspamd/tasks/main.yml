@@ -1,0 +1,20 @@
+- name: Add gpg key
+  apt_key:
+    url: https://rspamd.com/apt-stable/gpg.key
+    state: present
+
+- name: Add repository
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    filename: rspamd
+  with_items:
+    - deb     http://rspamd.com/apt-stable/ stretch main
+    - deb-src http://rspamd.com/apt-stable/ stretch main
+
+- name: Install package
+  apt:
+    name: rspamd
+    state: present
+    install_recommends: false
+    update_cache: true

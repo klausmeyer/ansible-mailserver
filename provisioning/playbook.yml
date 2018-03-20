@@ -1,0 +1,6 @@
+- name: Mailserver
+  hosts: all
+  roles:
+    - postfix
+    - dovecot
+    - rspamd
