@@ -18,3 +18,15 @@
     state: present
     install_recommends: false
     update_cache: true
+
+- name: Add configurations
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/rspamd/local.d/{{ item }}"
+  with_items:
+    - milter_headers.conf
+
+- name: Restart service
+  systemd:
+    name: rspamd
+    state: restarted
