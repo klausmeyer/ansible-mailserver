@@ -4,11 +4,17 @@
     state: present
   with_items:
     - postfix
+    - postfix-mysql
 
-- name: Update main config
+- name: Update configs
   template:
-    src: main.cf.j2
-    dest: /etc/postfix/main.cf
+    src: "{{ item }}.j2"
+    dest: "/etc/postfix/{{ item }}"
+  with_items:
+    - main.cf
+    - virtual-alias-maps.cf
+    - virtual-mailbox-domains.cf
+    - virtual-mailbox-maps.cf
   register: postfix_main_config
 
 - name: Restart service

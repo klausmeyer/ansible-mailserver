@@ -35,7 +35,7 @@ myhostname = {{ ansible_fqdn }}
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
 myorigin = /etc/mailname
-mydestination = $myhostname, {{ ansible_fqdn }}, localhost.localdomain, localhost
+# mydestination = $myhostname, {{ ansible_fqdn }}, localhost.localdomain, localhost
 relayhost =
 mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
 mailbox_size_limit = 0
@@ -43,7 +43,23 @@ recipient_delimiter = +
 inet_interfaces = all
 inet_protocols = all
 
-# Milter setup
+# ~~~ Custom Stuff ~~~
+
 smtpd_milters = inet:localhost:11332
 milter_default_action = accept
 milter_protocol = 6
+
+mydestination = localhost
+
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_auth_enable = yes
+smtpd_recipient_restrictions =
+  permit_sasl_authenticated,
+  permit_mynetworks,
+  reject_unauth_destination
+
+virtual_transport = lmtp:unix:private/dovecot-lmtp
+virtual_mailbox_domains = mysql:/etc/postfix/virtual-mailbox-domains.cf
+virtual_mailbox_maps = mysql:/etc/postfix/virtual-mailbox-maps.cf
+virtual_alias_maps = mysql:/etc/postfix/virtual-alias-maps.cf

@@ -3,5 +3,23 @@
     name: "{{ item }}"
     state: present
   with_items:
+    - dovecot-mysql
+    - dovecot-lmtpd
     - dovecot-imapd
     - dovecot-sieve
+
+- name: Add configurations
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/dovecot/{{ item }}"
+  with_items:
+    - conf.d/10-auth.conf
+    - conf.d/10-mail.conf
+    - conf.d/10-master.conf
+    - conf.d/auth-sql.conf.ext
+    - dovecot-sql.conf.ext
+
+- name: Restart service
+  systemd:
+    name: dovecot
+    state: restarted
