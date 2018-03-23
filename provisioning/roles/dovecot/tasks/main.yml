@@ -18,8 +18,10 @@
     - conf.d/10-master.conf
     - conf.d/auth-sql.conf.ext
     - dovecot-sql.conf.ext
+  register: dovecot_config
 
 - name: Restart service
   systemd:
     name: dovecot
     state: restarted
+  when: dovecot_config.changed

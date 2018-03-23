@@ -1,0 +1,37 @@
+- name: Install common packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - curl
+    - git
+    - htop
+    - ncdu
+    - tig
+    - tmux
+    - vim
+    - wget
+
+- name: Create mail directory
+  file:
+    name: /var/mail/vhosts
+    state: directory
+
+- name: Create vmail group
+  group:
+    name: vmail
+    gid: 5000
+
+- name: Create vmail user
+  user:
+    name: vmail
+    uid: 5000
+    home: /var/mail
+    group: vmail
+
+- name: Set permissions on mail directory
+  file:
+    name: /var/mail
+    owner: vmail
+    group: vmail
+    recurse: true

@@ -1,6 +1,7 @@
 - name: Mailserver
   hosts: all
   roles:
+    - baseline
     - postfix
     - dovecot
     - rspamd
