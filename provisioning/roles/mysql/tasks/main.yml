@@ -23,14 +23,14 @@
     - mariadb-server
     - python-mysqldb
 
-- name: Setup usermail user
+- name: Setup mailserver user
   mysql_user:
-    name: usermail
+    name: mailserver
     host: localhost
-    password: mailpassword
+    password: mailserver
     state: present
 
-- name: Setup servermail database
+- name: Setup mailserver database
   mysql_db:
-    name: servermail
+    name: mailserver
     state: present
