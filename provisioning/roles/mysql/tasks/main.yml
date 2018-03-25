@@ -23,14 +23,31 @@
     - mariadb-server
     - python-mysqldb
 
+- name: Setup mailserver database
+  mysql_db:
+    name: mailserver
+    state: present
+
 - name: Setup mailserver user
   mysql_user:
     name: mailserver
     host: localhost
     password: mailserver
+    priv: 'mailserver.*:ALL'
     state: present
 
-- name: Setup mailserver database
+- name: Copy database dump file
+  copy:
+    src: mailserver.sql
+    dest: /tmp
+
+- name: Import database dump
   mysql_db:
-    name: mailserver
-    state: present
+    state: import
+    name: all
+    target: /tmp/mailserver.sql
+
+- name: Delete database dump file
+  file:
+    name: /tmp/mailserver.sql
+    state: absent
