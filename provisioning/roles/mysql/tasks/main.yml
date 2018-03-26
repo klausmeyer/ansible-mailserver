@@ -1,20 +1,3 @@
-- name: Check if mysql is already installed
-  shell: dpkg-query -l 'mariadb-server' 2> /dev/null || true
-  changed_when: false
-  register: dpkg_result
-
-- name: Configure root password
-  debconf:
-    name: mariadb-server
-    question: "{{ item }}"
-    value: dummy
-    vtype: password
-  with_items:
-    - mysql-server/root_password
-    - mysql-server/root_password_again
-  when: dpkg_result.stdout == ""
-  changed_when: false
-
 - name: Install package
   apt:
     name: "{{ item }}"

@@ -1,2 +1,3 @@
 .vagrant
 *.retry
+provisioning/hosts.yml
