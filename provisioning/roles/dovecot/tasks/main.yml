@@ -9,8 +9,8 @@
     - dovecot-sieve
 
 - name: Add configurations
-  copy:
-    src: "{{ item }}"
+  template:
+    src: "{{ item }}.j2"
     dest: "/etc/dovecot/{{ item }}"
   with_items:
     - conf.d/10-auth.conf

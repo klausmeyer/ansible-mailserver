@@ -15,6 +15,7 @@ Vagrant.configure("2") do |config|
     ansible.extra_vars = {
       ssl_cert: "/etc/ssl/certs/ssl-cert-snakeoil.pem",
       ssl_key:  "/etc/ssl/private/ssl-cert-snakeoil.key",
+      mysql_password: "sup3rse3cr3t",
       mail_domains: ["example.com"],
       mail_users: [{
         username: "mail-a@example.com",

@@ -15,7 +15,7 @@
   mysql_user:
     name: mailserver
     host: localhost
-    password: mailserver
+    password: "{{ mysql_password }}"
     priv: 'mailserver.*:ALL'
     state: present
 
