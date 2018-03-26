@@ -16,6 +16,7 @@
     - conf.d/10-auth.conf
     - conf.d/10-mail.conf
     - conf.d/10-master.conf
+    - conf.d/10-ssl.conf
     - conf.d/auth-sql.conf.ext
     - dovecot.conf
     - dovecot-sql.conf.ext

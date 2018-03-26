@@ -6,12 +6,15 @@ Vagrant.configure("2") do |config|
 
   config.vm.network "forwarded_port", guest:  25, host: 1025 # SMTP
   config.vm.network "forwarded_port", guest: 143, host: 1143 # IMAP
+  config.vm.network "forwarded_port", guest: 993, host: 1993 # IMAPS
 
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "provisioning/playbook.yml"
     ansible.compatibility_mode = "2.0"
     ansible.become = true
     ansible.extra_vars = {
+      ssl_cert: "/etc/ssl/certs/ssl-cert-snakeoil.pem",
+      ssl_key:  "/etc/ssl/private/ssl-cert-snakeoil.key",
       mail_domains: ["example.com"],
       mail_users: [{
         username: "mail-a@example.com",
