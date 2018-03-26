@@ -17,6 +17,7 @@
     dest: "/etc/postfix/{{ item }}"
   with_items:
     - main.cf
+    - master.cf
     - virtual-alias-maps.cf
     - virtual-mailbox-domains.cf
     - virtual-mailbox-maps.cf
