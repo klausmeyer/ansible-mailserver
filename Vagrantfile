@@ -10,5 +10,19 @@ Vagrant.configure("2") do |config|
     ansible.playbook = "provisioning/playbook.yml"
     ansible.compatibility_mode = "2.0"
     ansible.become = true
+    ansible.extra_vars = {
+      mail_domains: ["example.com"],
+      mail_users: [{
+        username: "mail-a@example.com",
+        password: "swordfish-a"
+      }, {
+        username: "mail-b@example.com",
+        password: "swordfish-b"
+      }],
+      mail_aliases: [
+        { source: 'alias-a@example.com', destination: 'mail-a@example.com' },
+        { source: 'alias-b@example.com', destination: 'mail-b@example.com' }
+      ]
+    }
   end
 end

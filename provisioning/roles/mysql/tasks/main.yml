@@ -37,3 +37,18 @@
     name: /tmp/mailserver.sql
     state: absent
   changed_when: false
+
+- name: Create domain records
+  shell: mysql mailserver -e 'INSERT IGNORE INTO `virtual_domains` (`name`) VALUES ("{{ item }}");'
+  with_items: "{{ mail_domains }}"
+  changed_when: false
+
+- name: Create user records
+  shell: mysql mailserver -e 'INSERT IGNORE INTO `virtual_users` (`domain_id`, `email`, `password`) VALUES ((SELECT id FROM virtual_domains WHERE "{{ item.username }}" LIKE CONCAT("%@", name)), "{{ item.username }}", ENCRYPT("{{ item.password }}", CONCAT("$6$", SUBSTRING(SHA(RAND()), -16))));'
+  with_items: "{{ mail_users }}"
+  changed_when: false
+
+- name: Create alias records
+  shell: mysql mailserver -e 'INSERT IGNORE INTO `virtual_aliases` (`domain_id`, `source`, `destination`) VALUES ((SELECT id FROM virtual_domains WHERE "{{ item.source }}" LIKE CONCAT("%@", name)), "{{ item.source }}", "{{ item.destination }}");'
+  with_items: "{{ mail_aliases }}"
+  changed_when: false
