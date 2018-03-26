@@ -9,7 +9,7 @@
 - name: Define mailname
   copy:
     dest: /etc/mailname
-    content: "{{ ansible_fqdn }}"
+    content: "{{ inventory_hostname }}"
 
 - name: Update configs
   template:
