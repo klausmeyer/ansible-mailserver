@@ -23,14 +23,17 @@
   copy:
     src: mailserver.sql
     dest: /tmp
+  changed_when: false
 
 - name: Import database dump
   mysql_db:
     state: import
     name: all
     target: /tmp/mailserver.sql
+  changed_when: false
 
 - name: Delete database dump file
   file:
     name: /tmp/mailserver.sql
     state: absent
+  changed_when: false

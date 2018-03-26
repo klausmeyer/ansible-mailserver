@@ -6,6 +6,11 @@
     - postfix
     - postfix-mysql
 
+- name: Define mailname
+  copy:
+    dest: /etc/mailname
+    content: "{{ ansible_fqdn }}"
+
 - name: Update configs
   template:
     src: "{{ item }}.j2"
