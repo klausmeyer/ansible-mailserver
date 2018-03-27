@@ -17,10 +17,20 @@
     - conf.d/10-mail.conf
     - conf.d/10-master.conf
     - conf.d/10-ssl.conf
+    - conf.d/20-lmtp.conf
+    - conf.d/90-sieve.conf
     - conf.d/auth-sql.conf.ext
     - dovecot.conf
     - dovecot-sql.conf.ext
   register: dovecot_config
+
+- name: Create sieve directory
+  file:
+    name: /var/mail/sieve
+    state: directory
+    owner: vmail
+    group: vmail
+    recurse: true
 
 - name: Restart service
   systemd:
