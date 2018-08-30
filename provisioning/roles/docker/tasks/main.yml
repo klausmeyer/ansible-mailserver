@@ -1,0 +1,27 @@
+- name: Add docker GPG key
+  apt_key:
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- name: Add docker apt repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/debian stretch stable
+    state: present
+    filename: docker
+
+- name: Install docker-ce package
+  apt:
+    name: docker-ce=18.06.1~ce~3-0~debian
+    state: present
+
+- name: Enable and start docker service
+  systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Add meyer user to docker group
+  user:
+    name: meyer
+    groups: docker
+    append: yes

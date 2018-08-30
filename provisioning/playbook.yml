@@ -2,6 +2,7 @@
   hosts: all
   roles:
     - baseline
+    - docker
     - mysql
     - postfix
     - dovecot
