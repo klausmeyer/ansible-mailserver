@@ -1,0 +1,27 @@
+#!/bin/bash -e
+
+LOGFILE='/home/meyer/logs/ssl-update.log'
+
+source /home/meyer/config/ssl-update
+
+if [ "$UID" != "0" ];
+then
+  echo "This script must be executed as root"
+  exit 1
+fi
+
+echo '---' >> $LOGFILE
+date       >> $LOGFILE
+echo '---' >> $LOGFILE
+
+certbot \
+  -d "${SUBDOMAIN}.${DOMAIN}" \
+  -n \
+  --manual \
+  --manual-public-ip-logging-ok \
+  --preferred-challenges dns \
+  --manual-auth-hook /home/meyer/bin/dns-update \
+  certonly >> $LOGFILE 2>&1
+
+systemctl restart postfix
+systemctl restart dovecot

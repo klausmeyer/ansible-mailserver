@@ -3,6 +3,7 @@
   roles:
     - baseline
     - docker
+    - letsencrypt
     - mysql
     - postfix
     - dovecot

@@ -1,0 +1,30 @@
+- name: Create Directories
+  file:
+    state: directory
+    path: '/home/meyer/{{ item }}'
+    owner: meyer
+    group: meyer
+  with_items:
+    - bin
+    - config
+    - logs
+
+- name: Add executables
+  copy:
+    src: 'bin/{{ item }}'
+    dest: '/home/meyer/bin/{{ item }}'
+    owner: meyer
+    group: meyer
+    mode: 'u+x'
+  with_items:
+    - dns-update
+    - ssl-update
+
+- name: Add configs
+  template:
+    src: 'config/{{ item }}.j2'
+    dest: '/home/meyer/config/{{ item }}'
+    owner: meyer
+    group: meyer
+  with_items:
+    - ssl-update
