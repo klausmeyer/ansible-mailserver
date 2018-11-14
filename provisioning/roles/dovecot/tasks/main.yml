@@ -1,12 +1,11 @@
 - name: Install packages
   apt:
-    name: "{{ item }}"
+    name:
+      - dovecot-mysql
+      - dovecot-lmtpd
+      - dovecot-imapd
+      - dovecot-sieve
     state: present
-  with_items:
-    - dovecot-mysql
-    - dovecot-lmtpd
-    - dovecot-imapd
-    - dovecot-sieve
 
 - name: Add configurations
   template:

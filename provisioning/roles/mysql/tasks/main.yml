@@ -1,10 +1,9 @@
 - name: Install package
   apt:
-    name: "{{ item }}"
+    name:
+      - mariadb-server
+      - python-mysqldb
     state: present
-  with_items:
-    - mariadb-server
-    - python-mysqldb
 
 - name: Setup mailserver database
   mysql_db:
