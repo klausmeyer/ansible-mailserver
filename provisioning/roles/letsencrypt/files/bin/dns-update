@@ -2,11 +2,14 @@
 
 LOGFILE='/home/meyer/logs/dns-update.log'
 
-source /home/meyer/config/ssl-update
+source /home/meyer/config/inwx-credentials
 
 echo '---' >> $LOGFILE
 date       >> $LOGFILE
 echo '---' >> $LOGFILE
+
+SUBDOMAIN="$(echo $CERTBOT_DOMAIN | cut -d'.' -f1)"
+DOMAIN="$(echo $CERTBOT_DOMAIN | cut -d'.' -f2-)"
 
 echo "DOMAIN:             $DOMAIN"             >> $LOGFILE
 echo "SUBDOMAIN:          $SUBDOMAIN"          >> $LOGFILE

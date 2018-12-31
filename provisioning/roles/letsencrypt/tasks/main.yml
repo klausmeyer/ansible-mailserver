@@ -27,4 +27,4 @@
     owner: meyer
     group: meyer
   with_items:
-    - ssl-update
+    - inwx-credentials
