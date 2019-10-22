@@ -8,7 +8,7 @@
 - name: Define mailname
   copy:
     dest: /etc/mailname
-    content: "{{ inventory_hostname }}"
+    content: "{{ inventory_hostname }}\n"
 
 - name: Update configs
   template:
