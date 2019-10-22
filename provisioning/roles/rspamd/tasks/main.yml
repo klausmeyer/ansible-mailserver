@@ -1,3 +1,11 @@
+- name: Install dependencies (redis)
+  apt:
+    name: redis
+    state: present
+    install_recommends: false
+    update_cache: true
+    default_release: stretch-backports
+
 - name: Add gpg key
   apt_key:
     url: https://rspamd.com/apt-stable/gpg.key
