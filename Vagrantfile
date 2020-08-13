@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "debian/stretch64"
+  config.vm.box = "debian/buster64"
 
   config.vm.network "forwarded_port", guest:  25, host: 1025 # SMTP
   config.vm.network "forwarded_port", guest: 143, host: 1143 # IMAP
@@ -20,6 +20,7 @@ Vagrant.configure("2") do |config|
       letsencrypt_domain: "example.com",
       letsencrypt_subdomain: "mail",
       mysql_password: "sup3rse3cr3t",
+      mailname: "mail.example.com",
       mail_domains: ["example.com"],
       mail_users: [{
         username: "mail-a@example.com",
