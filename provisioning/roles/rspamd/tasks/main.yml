@@ -31,6 +31,7 @@
     src: "{{ item }}"
     dest: "/etc/rspamd/local.d/{{ item }}"
   with_items:
+    - classifier-bayes.conf
     - milter_headers.conf
   register: rspamd_config
 
