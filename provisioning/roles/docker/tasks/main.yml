@@ -5,13 +5,13 @@
 
 - name: Add docker apt repository
   apt_repository:
-    repo: deb https://download.docker.com/linux/debian buster stable
+    repo: deb https://download.docker.com/linux/debian bookworm stable
     state: present
     filename: docker
 
 - name: Install docker-ce package
   apt:
-    name: docker-ce=5:19.03.9~3-0~debian-buster
+    name: docker-ce=5:24.0.2-1~debian.12~bookworm
     state: present
 
 - name: Enable and start docker service

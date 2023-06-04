@@ -4,6 +4,7 @@
       - apt-transport-https
       - curl
       - git
+      - gpg
       - htop
       - ncdu
       - tig

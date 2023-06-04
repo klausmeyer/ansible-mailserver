@@ -2,7 +2,7 @@
   apt:
     name:
       - mariadb-server
-      - python-mysqldb
+      - python3-mysqldb
     state: present
 
 - name: Setup mailserver database
@@ -29,6 +29,7 @@
     state: import
     name: all
     target: /tmp/mailserver.sql
+    login_unix_socket: /var/run/mysqld/mysqld.sock
   changed_when: false
 
 - name: Delete database dump file

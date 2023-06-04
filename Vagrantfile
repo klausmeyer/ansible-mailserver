@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "debian/buster64"
+  config.vm.box = "debian/bookworm64"
 
   config.vm.network "forwarded_port", guest:  25, host: 1025 # SMTP
   config.vm.network "forwarded_port", guest: 143, host: 1143 # IMAP
