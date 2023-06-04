@@ -16,8 +16,8 @@
     state: present
     filename: rspamd
   with_items:
-    - deb     http://rspamd.com/apt-stable/ buster main
-    - deb-src http://rspamd.com/apt-stable/ buster main
+    - deb     http://rspamd.com/apt-stable/ bookworm main
+    - deb-src http://rspamd.com/apt-stable/ bookworm main
 
 - name: Install package
   apt:
