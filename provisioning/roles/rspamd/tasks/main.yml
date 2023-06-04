@@ -1,3 +1,24 @@
+- name: Install dependencies (redis)
+  apt:
+    name: redis
+    state: present
+    install_recommends: false
+    update_cache: true
+
+- name: Add gpg key
+  apt_key:
+    url: https://rspamd.com/apt-stable/gpg.key
+    state: present
+
+- name: Add repository
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    filename: rspamd
+  with_items:
+    - deb     http://rspamd.com/apt-stable/ buster main
+    - deb-src http://rspamd.com/apt-stable/ buster main
+
 - name: Install package
   apt:
     name: rspamd
