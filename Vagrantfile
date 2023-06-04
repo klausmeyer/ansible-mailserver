@@ -4,6 +4,11 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "debian/bookworm64"
 
+  config.vm.provider :libvirt do |domain|
+    domain.cpus   = 1
+    domain.memory = 2048
+  end
+
   config.vm.network "forwarded_port", guest:  25, host: 1025 # SMTP
   config.vm.network "forwarded_port", guest: 143, host: 1143 # IMAP
   config.vm.network "forwarded_port", guest: 993, host: 1993 # IMAPS
@@ -22,13 +27,10 @@ Vagrant.configure("2") do |config|
       mysql_password: "sup3rse3cr3t",
       mailname: "mail.example.com",
       mail_domains: ["example.com"],
-      mail_users: [{
-        username: "mail-a@example.com",
-        password: "swordfish-a"
-      }, {
-        username: "mail-b@example.com",
-        password: "swordfish-b"
-      }],
+      mail_users: [
+        { username: "mail-a@example.com", password: "swordfish-a" },
+        { username: "mail-b@example.com", password: "swordfish-b" }
+      ],
       mail_aliases: [
         { source: 'alias-a@example.com', destination: 'mail-a@example.com' },
         { source: 'alias-b@example.com', destination: 'mail-b@example.com' }
