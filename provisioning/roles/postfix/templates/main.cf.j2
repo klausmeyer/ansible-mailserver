@@ -71,3 +71,6 @@ virtual_mailbox_maps = mysql:/etc/postfix/virtual-mailbox-maps.cf
 virtual_alias_maps = mysql:/etc/postfix/virtual-alias-maps.cf
 
 message_size_limit = 20480000
+
+smtp_skip_5xx_greeting = no
+maximal_queue_lifetime = 1d
